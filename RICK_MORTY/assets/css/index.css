@@ -1,0 +1,79 @@
+:root {
+  --background-color: #282c34;
+  --card-color: #3c3f47;
+  --highlight-color: rgb(45, 241, 45);
+  --text-color: white;
+  --disabled-color: #ccc;
+  --button-border-color: var(--highlight-color);
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #282c34;
+  color: white;
+}
+
+.card {
+  background-color: #3c3f47;
+  padding: 10px;
+  border-radius: 10px;
+  width: 150px;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05) rotate(1deg);
+  box-shadow: 0 0 20px rgba(45, 241, 45, 0.7);
+}
+
+img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding: 20px 0;
+}
+
+button {
+  font-family: "Poppins";
+  font-weight: 500;
+  padding: 10px;
+  margin: 5px;
+  width: 200px;
+  height: 50px;
+  border: 2px solid;
+  border-radius: 10px;
+  background-color: #282c34;
+  color: rgb(45, 241, 45);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(45, 241, 45);
+  color: #282c34;
+}
+
+button:disabled:hover {
+  background-color: #ccc !important;
+  color: #282c34;
+  cursor: not-allowed;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Personagens Rick e Morty</title>
+    <link rel="stylesheet" href="./assets/css/index.css" />
+  </head>
+  <body>
+    <h1>Personagens Rick e Morty</h1>
+    <div class="container" id="character-container"></div>
+    <div class="pagination">
+      <button id="prev" class="btnPrev" type="button">Previous</button>
+      <button id="next" class="btnNext" type="button">Next</button>
+    </div>
+
+    <script>
+      let currentPage = 1;
+      const container = document.getElementById("character-container");
+      const btnPrev = document.getElementById("prev");
+      const btnNext = document.getElementById("next");
+
+      async function getCharacters(page) {
+        try {
+          container.innerHTML = "Carregando...";
+          const response = await fetch(
+            `https://rickandmortyapi.com/api/character/?page=${page}`
+          );
+          const data = await response.json();
+          container.innerHTML = "";
+          console.log(data);
+          data.results.forEach((character) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                        <img src="${character.image}" alt="${character.name}">
+                        <p>${character.name}</p>
+                    `;
+
+            card.addEventListener("click", () => {
+              window.location.href = `character.html?id=${character.id}`;
+            });
+
+            container.appendChild(card);
+          });
+          btnPrev.disabled = !data.info.prev;
+          btnNext.disabled = !data.info.next;
+        } catch (error) {
+          console.log("Erro ao carregar personagens", error);
+          container.innerHTML = "Erro ao carregar personagens";
+        }
+      }
+
+      btnPrev.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          getCharacters(currentPage);
+        }
+      });
+
+      btnNext.addEventListener("click", () => {
+        currentPage++;
+        getCharacters(currentPage);
+      });
+
+      document.addEventListener("DOMContentLoaded", () =>
+        getCharacters(currentPage)
+      );
+    </script>
+  </body>
+</html>
